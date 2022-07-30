@@ -1,6 +1,7 @@
 # Footium Ampharos Algorithm v2
 # @ruiesteves
-# Ampharos Web Scrapper with Selenium (second try to activate Metamask)
+# Ampharos Web Scrapper with Selenium (second try to activate Metamask) - WORKS
+# Commented print lines were for debug purposes, can still be used (most of them)
 
 # Imports
 from selenium import webdriver
@@ -10,6 +11,7 @@ import time
 import pickle
 
 # Initial Constants
+# INITIALLY FOR DEBUG PURPOSES
 #URL_init = 'https://footium.club/beta/tournaments/3/match/21/0'
 #URL_list = [URL_init]
 
