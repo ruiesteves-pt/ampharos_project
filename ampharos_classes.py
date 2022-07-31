@@ -34,3 +34,38 @@ class Match:
             self.result = [1,1,self.formation_h,self.formation_a,self.style_h,self.style_a] # [points home, points away, formation home, formation away, style home, style away]
         else:
             self.result = [0,3,self.formation_h,self.formation_a,self.style_h,self.style_a] # [points home, points away, formation home, formation away, style home, style away]
+
+
+    def avgStamina(self):
+        list_lineups = [self.line_up_h, self.line_up_a]
+        #list_lineups = [self.line_up_h]
+        stamina_avg = []
+        for lineup in list_lineups:
+            stamina_list = []
+            l = range(len(lineup))
+            for i in l:
+                if i == 0:
+                    None
+                elif i <= 10 and i >= 1:
+                    stamina = int(lineup[i]['stamina'].replace('%',''))
+                    stamina_list.append(stamina)
+                    #print(stamina_list)
+                else:
+                    None
+            a = 0
+            for i in stamina_list:
+                a = a + i
+            stamina_single_avg = a/len(stamina_list)
+            #print(stamina_single_avg)
+            stamina_avg.append(stamina_single_avg)
+        self.stamina_h_avg = stamina_avg[0]
+        self.stamina_a_avg = stamina_avg[1]
+
+    def isGhost(self):
+        if self.stamina_h_avg <= 45:
+            self.ghost_h = True
+        elif self.stamina_a_avg <= 45:
+            self.ghost_a = True
+        else:
+            self.ghost_h = False
+            self.ghost_a = False
