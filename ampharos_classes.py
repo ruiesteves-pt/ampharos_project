@@ -62,10 +62,16 @@ class Match:
         self.stamina_a_avg = stamina_avg[1]
 
     def isGhost(self):
-        if self.stamina_h_avg <= 45:
+        if self.stamina_h_avg <= 45 and self.stamina_a_avg <= 45:
             self.ghost_h = True
-        elif self.stamina_a_avg <= 45:
+            self.ghost_a = True
+        elif self.stamina_h_avg <= 45 and self.stamina_a_avg > 45:
+            self.ghost_h = True
+            self.ghost_a = False
+        elif self.stamina_h_avg > 45 and self.stamina_a_avg <= 45:
+            self.ghost_h = False
             self.ghost_a = True
         else:
             self.ghost_h = False
             self.ghost_a = False
+        #print(self.ghost_h, self.ghost_a)

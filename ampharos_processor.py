@@ -64,7 +64,7 @@ def arrangeStyles(list_of_obj):
     styles_combinations = list(itertools.combinations(set_styles, 2))
     for style in set_styles:
         styles_combinations.append((style,style))
-    print(styles_combinations)
+    #print(styles_combinations)
     for combo in styles_combinations:
         dict_styles[combo] = [0,0,0]  # KEY = COMBO, VALUE = [POINTS FORMATION 1, POINTS FORMATION 2, GAME COUNTER]
     #print(formation_combinations)
@@ -73,13 +73,18 @@ def arrangeStyles(list_of_obj):
 def formation_heatmap(list_of_obj):
     for obj in list_of_obj:
         obj.formationAnalysis()
-        match_result = obj.result
-        match_form_tuple = (match_result[2],match_result[3])
-        match_form_tuple_1 = (match_result[3],match_result[2])
-        if match_form_tuple in dict_formations:
-            dict_formations[match_form_tuple] = [sum(x) for x in zip(dict_formations[match_form_tuple], [match_result[0],match_result[1],1])]
-        elif match_form_tuple_1 in dict_formations:
-            dict_formations[match_form_tuple_1] = [sum(x) for x in zip(dict_formations[match_form_tuple_1], [match_result[1],match_result[0],1])]
+        obj.avgStamina()
+        obj.isGhost()
+        if obj.ghost_h or obj.ghost_a:
+            None
+        else:
+            match_result = obj.result
+            match_form_tuple = (match_result[2],match_result[3])
+            match_form_tuple_1 = (match_result[3],match_result[2])
+            if match_form_tuple in dict_formations:
+                dict_formations[match_form_tuple] = [sum(x) for x in zip(dict_formations[match_form_tuple], [match_result[0],match_result[1],1])]
+            elif match_form_tuple_1 in dict_formations:
+                dict_formations[match_form_tuple_1] = [sum(x) for x in zip(dict_formations[match_form_tuple_1], [match_result[1],match_result[0],1])]
 
     formation_plot = {}
     for formation_1 in set_formations:
@@ -160,3 +165,5 @@ set_formations = arrangeFormations(list_of_matches_obj)
 set_styles = arrangeStyles(list_of_matches_obj)
 formation_heatmap(list_of_matches_obj)
 style_heatmap(list_of_matches_obj)
+#list_of_matches_obj[0].avgStamina()
+#print(list_of_matches_obj[0].stamina_h_avg,list_of_matches_obj[0].stamina_a_avg)
